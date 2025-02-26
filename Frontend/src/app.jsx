@@ -1,10 +1,14 @@
-function App() {
-    return (
-        <div>
-            <h1>Hello, TikTok Live App!</h1>
-            <p>The frontend is working!</p>
-        </div>
-    );
-}
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import LoginPage from "./pages/LoginPage";
+
+const App = () => {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<LoginPage />} />
+      </Routes>
+    </Router>
+  );
+};
 
 export default App;

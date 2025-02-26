@@ -1,0 +1,115 @@
+/* LoginPage.css */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body, html {
+    height: 100%;
+  }
+
+  .background-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensure the video fills the screen */
+    z-index: -1; /* Ensures the video stays behind all other content */
+}
+  
+.login-container {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative; /* To contain the background video */
+}
+  .login-form-container {
+    text-align: center;
+    background-color: #111010;
+    padding: 2rem;
+    border-radius: 25px; 
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); 
+    width: 100%;
+    height: 600px;
+    max-width: 400px; 
+    position: relative;
+  }
+
+  .phone-screen {
+    background-color: #91d0e9; /* The screen part (white background) */
+    border-radius: 20px; 
+    padding: 2rem;
+    width: 100%; 
+    height: 95%; 
+    margin: 0 auto; 
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding-top: 95px;
+  }
+
+  /* Home button at the bottom of the phone */
+.phone-home-button {
+    width: 50px; 
+    height: 50px; 
+    background-color: #171a19; 
+    border-radius: 50%; 
+    position: absolute;
+    bottom: 5px; 
+    left: 50%; 
+    transform: translateX(-50%); 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .phone-home-button .square {
+    width: 10px; /* Size of the square */
+    height: 10px; /* Size of the square */
+    background-color: white; /* Color of the square */
+  }
+  
+  
+  .title {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #333333;
+    margin-bottom: 1.5rem;
+  }
+  
+  .input {
+    padding: 1rem;
+    width: 100%;
+    max-width: 350px; /* Constrain input box */
+    border: 2px solid #ccc;
+    border-radius: 15px; /* Rounded corners for the input */
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    outline: none;
+  }
+  
+  .input:focus {
+    border-color: #009688;
+    box-shadow: 0 0 0 4px rgba(0, 150, 136, 0.2);
+  }
+  
+  .button {
+    width: 100%;
+    max-width: 350px; /* Same as input box width */
+    padding: 1rem;
+    background-color: #009688;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 15px; /* Rounded corners for the button */
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .button:hover {
+    background-color: #00796b;
+  }
+  
