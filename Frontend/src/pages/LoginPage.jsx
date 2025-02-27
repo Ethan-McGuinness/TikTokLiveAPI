@@ -9,17 +9,35 @@ const LoginPage = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (username.trim()) {
+            // Open a WebSocket connection to the backend server
+            const ws = new WebSocket("ws://localhost:3000");
+
+            ws.onopen = () => {
+                // Send the username to the backend when WebSocket is open
+                ws.send(JSON.stringify({ username }));
+                console.log(`Sent username: ${username}`);
+            };
+
+            ws.onmessage = (event) => {
+                const message = JSON.parse(event.data);
+                if (message.type === "error") {
+                    alert(message.message); // Handle errors (if any)
+                }
+            };
+
+            // Navigate to the dashboard once the username is sent
             navigate(`/dashboard?user=${username}`);
+        } else {
+            alert("Please enter a valid TikTok username.");
         }
     };
 
     return (
         <div className="login-container">
-      {/* Background Video */}
-      <video className="background-video" autoPlay loop muted>
-        <source src="/phonescreen.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
+            <video className="background-video" autoPlay loop muted>
+                <source src="/phonescreen.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+            </video>
 
             <div className="login-form-container">
                 <div className="phone-screen">
@@ -27,7 +45,7 @@ const LoginPage = () => {
                     <form onSubmit={handleSubmit} className="space-y-4">
                         <input
                             type="text"
-                            placeholder="Enter a username"
+                            placeholder="Enter a TikTok username"
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
                             className="input"

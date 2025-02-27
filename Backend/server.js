@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const WebSocket = require("ws");
+const { connectToTikTok } = require("./Services/tiktokservices"); // Import the TikTok service
 
 const app = express();
 const PORT = 3000;
@@ -21,18 +22,22 @@ const wss = new WebSocket.Server({ server });
 wss.on("connection", (ws) => {
     console.log("New WebSocket connection established.");
 
-    ws.send(JSON.stringify({ message: "Connected to WebSocket server!" }));
-
-    ws.on("message", (data) => {
-        console.log("Received from client:", data.toString());
+    // When a message is received (username), attempt to connect to TikTok live
+    ws.on("message", async (message) => {
+        const { username } = JSON.parse(message);
+        if (username) {
+            console.log(`Attempting to connect to @${username}`);
+            connectToTikTok(username, ws); // Call the function from tiktokservices.js
+        }
     });
 
+    // WebSocket connection close
     ws.on("close", () => {
         console.log("WebSocket connection closed.");
     });
 });
 
-// Test route
+// Test route to check if server is working
 app.get("/", (req, res) => {
     res.send("WebSocket Server is running.");
 });
