@@ -1,32 +1,36 @@
-const { WebcastPushConnection } = require('tiktok-live-connector'); // Import the TikTok Live Connector
+const { WebcastPushConnection } = require("tiktok-live-connector");
 
-// Function to start the TikTok live connection
 const connectToTikTok = (username, ws) => {
-    // Create a new WebcastPushConnection instance with the TikTok username
     const tiktokLiveConnection = new WebcastPushConnection(username);
 
-    // Connect to the live stream and handle events
     tiktokLiveConnection.connect()
         .then(state => {
-            console.info(`Connected to roomId ${state.roomId}`);
+            console.info(`[✅] Connected to TikTok Live - Room ID: ${state.roomId}`);
         })
         .catch(err => {
-            console.error("Failed to connect", err);
+            console.error("[❌] Failed to connect:", err);
             ws.send(JSON.stringify({ type: "error", message: "Failed to connect to TikTok live stream" }));
         });
 
     // Listen for chat events
-    tiktokLiveConnection.on('chat', data => {
-        console.log(`${data.uniqueId} (userId:${data.userId}) writes: ${data.comment}`);
-        ws.send(JSON.stringify({ type: "chat", data }));
+    tiktokLiveConnection.on("chat", (data) => {
+        if (ws.readyState === 1) { // WebSocket OPEN state
+            ws.send(JSON.stringify({ type: "chat", data }));
+            console.log(`[💬] Chat from @${data.uniqueId}: "${data.comment}"`);
+        } else {
+            console.warn("[⚠️] WebSocket closed. Chat message not sent.");
+        }
     });
 
     // Listen for gift events
-    tiktokLiveConnection.on('gift', data => {
-        console.log(`${data.uniqueId} (userId:${data.userId}) sends ${data.giftId}`);
-        ws.send(JSON.stringify({ type: "gift", data }));
+    tiktokLiveConnection.on("gift", (data) => {
+        if (ws.readyState === 1) { // WebSocket OPEN state
+            ws.send(JSON.stringify({ type: "gift", data }));
+            console.log(`[🎁] Gift from @${data.uniqueId} (Gift ID: ${data.giftId})`);
+        } else {
+            console.warn("[⚠️] WebSocket closed. Gift message not sent.");
+        }
     });
 };
 
-// Export the function to use in server.js
 module.exports = { connectToTikTok };
