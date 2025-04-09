@@ -1,0 +1,56 @@
+// Define the datasource for the database
+datasource db {
+  provider = "sqlite"  
+  url      = "file:./database.db"  
+}
+
+// Define the generator for Prisma Client
+generator client {
+  provider = "prisma-client-js"
+}
+
+// Define the models (tables) for your database
+model Streamer {
+  streamer_id Int      @id @default(autoincrement())  
+  username    String   @unique  
+  messages    Message[] 
+  gifts       Gift[]     
+}
+
+model User {
+  user_id    Int      @id @default(autoincrement())  
+  username   String   @unique  
+  flagged    Boolean  @default(false)  
+  messages   Message[]  
+  gifts      Gift[]    
+}
+
+model Message {
+  message_id Int      @id @default(autoincrement())  
+  content    String   
+  timestamp  DateTime @default(now())  
+  user_id    Int  
+  streamer_id Int  
+
+  user       User     @relation(fields: [user_id], references: [user_id]) 
+  streamer   Streamer @relation(fields: [streamer_id], references: [streamer_id])  
+}
+
+model Gift {
+  gift_id    Int      @id @default(autoincrement())  
+  user_id    Int      
+  streamer_id Int     
+  giftType_id Int     
+  timestamp  DateTime @default(now())  
+
+  user       User     @relation(fields: [user_id], references: [user_id]) 
+  streamer   Streamer @relation(fields: [streamer_id], references: [streamer_id])  
+  giftType   GiftType @relation(fields: [giftType_id], references: [gift_id])  
+}
+
+model GiftType {
+  gift_id   Int      @id @default(autoincrement())  
+  name      String  
+  value     Float    
+  gifts     Gift[]   
+}
