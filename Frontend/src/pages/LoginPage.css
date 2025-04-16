@@ -40,7 +40,9 @@
   }
 
   .phone-screen {
-    background-color: #7699a7; /* The screen part (white background) */
+    background: linear-gradient(270deg, #fe2c55, #25f4ee, #ffffff);
+    background-size: 600% 600%;
+    animation: tiktokGradient 10s ease infinite; /* Gradual movement */
     border-radius: 20px; 
     padding: 2rem;
     width: 100%; 
@@ -48,7 +50,14 @@
     margin: 0 auto; 
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     padding-top: 95px;
-  }
+}
+
+@keyframes tiktokGradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
 
   /* Home button at the bottom of the phone */
 .phone-home-button {

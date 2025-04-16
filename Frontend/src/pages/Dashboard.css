@@ -1,22 +1,145 @@
+/* Dashboard Container */
 .dashboard-container {
-    padding: 2rem;
-    text-align: center;
+    min-height: 100vh;
+    background: black;
+    padding-top: 5rem;  /* Adjust to the height of the header */
+    position: relative;  /* To position the shapes relative to the container */
+    overflow: hidden; /* Ensure content doesn't overflow */
 }
 
+/* Header */
+.header {
+    background: linear-gradient(270deg, #fe2c55, #25f4ee, #ffffff);
+    font-size: 2rem;
+    font-weight: bold;
+    color: #000000;
+    margin-bottom: 2rem;
+    text-align: center;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+    border: 5px solid #ccc;
+}
+
+/* Dashboard Box Styles */
 .dashboard-box {
+    margin-top: 5rem; 
     margin-bottom: 2rem;
 }
 
-.chat-box, .gift-box {
-    border: 1px solid #ccc;
+/* Chat Section (left panel) */
+.chat-section {
+    position: absolute;
+    top: 6rem;
+    left: 2rem;
+    width: 25%;
+    height: 80vh;
+    background-color: #1a1a1a; /* Solid background */
+    border: 5px solid transparent; /* Make the border transparent */
+    border-image: linear-gradient(270deg, #fe2c55, #25f4ee, #ffffff) 1; /* Apply the gradient to the border */
+    border-radius: 10px;
     padding: 1rem;
-    max-height: 400px;
-    overflow-y: auto;
-    background-color: #f9f9f9;
+    color: white;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    z-index: 10; /* Ensures chat box is above the background circles */
 }
 
-.chat-message, .gift-item {
-    margin: 1rem 0;
-    padding: 0.5rem;
-    border-bottom: 1px solid #ddd;
+
+/* Chat Box (scrollable area) */
+.chat-box {
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 0.5rem;
+    margin-top: 1rem;
+    background-color: #111111; /* Solid background */
+}
+
+/* Chat Message Style */
+.chat-message {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #444;
+    word-break: break-word;
+    background-color: #111111; /* solid background for messages */
+}
+
+
+.gift-section {
+    position: absolute;
+    top: 6rem;
+    right: 2rem;
+    width: 25%;
+    height: 80vh;
+    background-color: #1a1a1a; /* Solid background */
+    border: 5px solid transparent;
+    border-image: linear-gradient(270deg, #ffffff, #25f4ee, #fe2c55) 1; /* Reversed gradient for contrast */
+    border-radius: 10px;
+    padding: 1rem;
+    color: white;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    z-index: 10; /* Above background shapes */
+}
+
+/* Gift Box (scrollable area) */
+.gift-box {
+    flex: 1;
+    overflow-y: auto;
+    margin-top: 1rem;
+    background-color: #111111; /* Solid background like chat box */
+    padding-right: 0.5rem;
+}
+
+/* Gift Item Style */
+.gift-item {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #444;
+    word-break: break-word;
+    background-color: #111111; /* Solid background for consistency */
+}
+
+
+
+/* Background Shapes */
+
+/* Red Circle */
+.red-circle {
+    position: absolute;
+    top: -50px;
+    left: -120px;
+    width: 800px;
+    height: 800px;
+    border: 5px solid #fe2c55;
+    border-radius: 50%;
+    background: transparent;
+    z-index: 0;
+}
+
+/* White Circle */
+.white-circle {
+    position: absolute;
+    bottom: -50px;
+    right: -300px;
+    width: 1000px;
+    height: 1000px;
+    border: 5px solid #ffffff;
+    border-radius: 50%;
+    background: transparent;
+    z-index: 0;
+}
+
+/* Blue Circle */
+.blue-circle {
+    position: absolute;
+    bottom: 0px;
+    left: -1000px;
+    width: 5000px;
+    height: 5000px;
+    border: 5px solid #25f4ee;
+    border-radius: 50%;
+    background: transparent;
+    z-index: 0;
 }
