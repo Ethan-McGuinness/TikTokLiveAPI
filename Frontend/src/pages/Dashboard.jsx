@@ -1,12 +1,14 @@
 import { useEffect, useState, useRef } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import "./Dashboard.css";
 
 const Dashboard = () => {
     const [chatMessages, setChatMessages] = useState([]);
     const [gifts, setGifts] = useState([]);
+    const [follows, setFollows] = useState([]);
     const [username, setUsername] = useState("");
     const location = useLocation();
+    const navigate = useNavigate();
     const ws = useRef(null);
     const chatBoxRef = useRef(null);
 
@@ -37,6 +39,9 @@ const Dashboard = () => {
                     setChatMessages((prev) => [...prev, message.data]);
                 } else if (message.type === "gift") {
                     setGifts((prev) => [...prev, message.data]);
+                } else if (message.type === "follow") {
+                    setFollows((prev) => [...prev, message.data]);
+                    console.log(`New follower: @${message.data.uniqueId}`);
                 } else if (message.type === "error") {
                     alert(message.message);
                 }
@@ -47,7 +52,7 @@ const Dashboard = () => {
             };
 
             ws.current.onclose = (event) => {
-                console.error('WebSocket closed. Attempting to reconnect...', event);
+                console.error("WebSocket closed. Attempting to reconnect...", event);
                 setTimeout(() => {
                     console.log("Attempting to reconnect...");
                     createWebSocket();
@@ -71,6 +76,14 @@ const Dashboard = () => {
         }
     }, [chatMessages]);
 
+    const handleDisconnect = () => {
+        if (ws.current) {
+            ws.current.close();
+            ws.current = null;
+        }
+        navigate("/");
+    };
+
     return (
         <div className="dashboard-container">
             <div className="red-circle"></div>
@@ -79,6 +92,9 @@ const Dashboard = () => {
 
             <div className="header">
                 Connected to: {username}
+                <button className="disconnect-button" onClick={handleDisconnect}>
+                    Disconnect
+                </button>
             </div>
 
             <div className="chat-section">
@@ -86,7 +102,15 @@ const Dashboard = () => {
                 <div className="chat-box" ref={chatBoxRef}>
                     {chatMessages.map((msg, index) => (
                         <div key={index} className="chat-message">
-                            <strong>{msg.uniqueId}</strong>: {msg.comment}
+                            <div className="user-info">
+                                <img
+                                    src={msg.profilePictureUrl || 'default-avatar.png'} // Use the profile picture URL or a fallback image
+                                    alt={msg.uniqueId}
+                                    className="user-avatar"
+                                />
+                                <strong>{msg.uniqueId}</strong>
+                            </div>
+                            <p>{msg.comment}</p>
                         </div>
                     ))}
                 </div>
@@ -98,6 +122,17 @@ const Dashboard = () => {
                     {gifts.map((gift, index) => (
                         <div key={index} className="gift-item">
                             User: {gift.uniqueId} sent gift {gift.giftId}
+                        </div>
+                    ))}
+                </div>
+            </div>
+
+            <div className="follow-section">
+                <h2>Follows</h2>
+                <div className="follow-box">
+                    {follows.map((follow, index) => (
+                        <div key={index} className="follow-item">
+                            🆕 @{follow.uniqueId} followed!
                         </div>
                     ))}
                 </div>

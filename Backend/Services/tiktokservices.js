@@ -38,6 +38,20 @@ const connectToTikTok = (username, ws) => {
             console.warn("[⚠️] WebSocket closed. Gift message not sent.");
         }
     });
+
+    // Listen for Follow events
+    tiktokLiveConnection.on("follow", data => {
+        if (ws.readyState === 1) {
+            ws.send(JSON.stringify({type: "follow", data}));
+            console.log(`[➕] @${data.uniqueId} followed the streamer`);
+        } else {
+            console.warn("Websocket closed. follow message not sent");
+        }
+    });
+
+
+
+
 };
 
 module.exports = { connectToTikTok };

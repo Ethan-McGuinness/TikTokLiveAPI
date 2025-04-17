@@ -2,9 +2,9 @@
 .dashboard-container {
     min-height: 100vh;
     background: black;
-    padding-top: 5rem;  /* Adjust to the height of the header */
-    position: relative;  /* To position the shapes relative to the container */
-    overflow: hidden; /* Ensure content doesn't overflow */
+    padding-top: 5rem;  
+    position: relative;  
+    overflow: hidden; 
 }
 
 /* Header */
@@ -20,6 +20,21 @@
     width: 100%;
     z-index: 100;
     border: 5px solid #ccc;
+}
+
+.disconnect-button {
+    position: absolute; /* Positions the button relative to the header */
+    top: 1px; /* Distance from the top of the header */
+    left: 20px; /* Distance from the right edge of the header */
+    padding: 8px 16px;
+    background-color: #ce1e1e; /* Red background */
+    color: white;
+    font-size: 0.8rem;
+    border: 2px solid black;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    z-index: 101; /* Ensures it's above other content */
 }
 
 /* Dashboard Box Styles */
@@ -47,7 +62,6 @@
     z-index: 10; /* Ensures chat box is above the background circles */
 }
 
-
 /* Chat Box (scrollable area) */
 .chat-box {
     flex: 1;
@@ -63,6 +77,36 @@
     border-bottom: 1px solid #444;
     word-break: break-word;
     background-color: #111111; /* solid background for messages */
+    display: flex;
+    align-items: center; /* Aligns profile picture and message content */
+}
+
+/* User Info Container (Avatar + Username) */
+.user-info {
+    display: flex;
+    align-items: center;
+    margin-right: 1rem; /* Space between profile picture and message */
+}
+
+/* User Avatar Style */
+.user-avatar {
+    width: 40px; /* Size of the profile picture */
+    height: 40px;
+    border-radius: 50%; /* Round shape for the avatar */
+    margin-right: 10px; /* Space between avatar and username */
+}
+
+/* Username Style */
+.chat-message strong {
+    font-size: 1rem; /* Adjusted size for username */
+    color: #fff; /* White color for username */
+}
+
+/* Message Text Style */
+.chat-message p {
+    margin: 0;
+    color: #fff; /* White color for message text */
+    word-wrap: break-word;
 }
 
 
@@ -71,7 +115,7 @@
     top: 6rem;
     right: 2rem;
     width: 25%;
-    height: 80vh;
+    height: 40vh;
     background-color: #1a1a1a; /* Solid background */
     border: 5px solid transparent;
     border-image: linear-gradient(270deg, #ffffff, #25f4ee, #fe2c55) 1; /* Reversed gradient for contrast */
@@ -99,6 +143,42 @@
     border-bottom: 1px solid #444;
     word-break: break-word;
     background-color: #111111; /* Solid background for consistency */
+}
+
+/* Follow Section (New) */
+.follow-section {
+    position: absolute;
+    top: calc(6rem + 38vh + 2rem); 
+    right: 2rem;
+    width: 25%;
+    height: 38vh;
+    background-color: #1a1a1a;
+    border: 5px solid transparent;
+    border-image: linear-gradient(270deg, #25f4ee, #fe2c55, #ffffff) 1; /* Different order for contrast */
+    border-radius: 10px;
+    padding: 1rem;
+    color: white;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    z-index: 10;
+}
+
+/* Follow Box (scrollable area) */
+.follow-box {
+    flex: 1;
+    overflow-y: auto;
+    margin-top: 1rem;
+    background-color: #111111;
+    padding-right: 0.5rem;
+}
+
+/* Follow Item Style */
+.follow-item {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #444;
+    word-break: break-word;
+    background-color: #111111;
 }
 
 
