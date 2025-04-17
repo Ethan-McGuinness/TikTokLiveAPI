@@ -19,25 +19,50 @@ const server = app.listen(PORT, () => {
 // WebSocket setup
 const wss = new WebSocket.Server({ server });
 
+// Keep track of active stream connections
+const activeConnections = new Map(); // username => ws
+
 wss.on("connection", (ws) => {
     console.log("New WebSocket connection established.");
 
-    // When a message is received (username), attempt to connect to TikTok live
     ws.on("message", async (message) => {
-        const { username } = JSON.parse(message);
-        if (username) {
+        try {
+            const { username } = JSON.parse(message);
+
+            if (!username) {
+                console.warn("No username received in WebSocket message.");
+                return;
+            }
+
             console.log(`Attempting to connect to @${username}`);
-            connectToTikTok(username, ws); // Call the function from tiktokservices.js
+
+            // Avoid duplicate connections for same streamer
+            if (!activeConnections.has(username)) {
+                activeConnections.set(username, ws);
+                await connectToTikTok(username, ws);
+            } else {
+                console.log(`Already connected to @${username}, skipping duplicate connection.`);
+            }
+
+        } catch (error) {
+            console.error("Failed to process WebSocket message:", error);
         }
     });
 
-    // WebSocket connection close
     ws.on("close", () => {
         console.log("WebSocket connection closed.");
+
+        // Optionally remove closed connections from the map
+        for (const [username, socket] of activeConnections.entries()) {
+            if (socket === ws) {
+                activeConnections.delete(username);
+                console.log(`Removed ${username} from active connections.`);
+            }
+        }
     });
 });
 
-// Test route to check if server is working
+// Test route
 app.get("/", (req, res) => {
     res.send("WebSocket Server is running.");
 });

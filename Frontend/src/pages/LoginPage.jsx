@@ -5,12 +5,18 @@ import "./LoginPage.css";
 const LoginPage = () => {
     const [username, setUsername] = useState("");
     const navigate = useNavigate();
+    let ws; // Declare WebSocket here to manage its state
 
     const handleSubmit = (e) => {
         e.preventDefault();
         if (username.trim()) {
-            // Open a WebSocket connection to the backend server
-            const ws = new WebSocket("ws://localhost:3000");
+            // If there was a previous WebSocket connection, close it
+            if (ws && ws.readyState === WebSocket.OPEN) {
+                ws.close();
+            }
+
+            // Open a new WebSocket connection to the backend server
+            ws = new WebSocket("ws://localhost:3000");
 
             ws.onopen = () => {
                 // Send the username to the backend when WebSocket is open

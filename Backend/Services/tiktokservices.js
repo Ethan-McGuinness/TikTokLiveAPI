@@ -1,5 +1,6 @@
 const {addStreamerIfNotExists} = require ('../Database/streamerService');
 const {addUserIfNotExists} = require ('../Database/userServices');
+const { addUserChatMessage } = require('../Database/messageService');
 
 const { WebcastPushConnection } = require("tiktok-live-connector");
 
@@ -22,6 +23,7 @@ const connectToTikTok = (username, ws) => {
             ws.send(JSON.stringify({ type: "chat", data }));
             console.log(`[💬] Chat from @${data.uniqueId}: "${data.comment}"`);
             addUserIfNotExists(data.uniqueId);
+            addUserChatMessage(data.uniqueId,username,data.comment);
         } else {
             console.warn("[⚠️] WebSocket closed. Chat message not sent.");
         }

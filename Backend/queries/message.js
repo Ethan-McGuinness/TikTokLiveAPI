@@ -3,14 +3,14 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 // Create a new message
-export const createMessage = async (userId, streamerId, content) => {
+export const createMessage = async (user_id, streamer_id, content) => {
     try {
         return await prisma.message.create({
             data: {
-                userId,
-                streamerId,
+                user_id,
+                streamer_id,
                 content,
-                timestamp: new Date(), 
+                timestamp: new Date(),
             },
         });
     } catch (error) {
@@ -18,6 +18,7 @@ export const createMessage = async (userId, streamerId, content) => {
         throw new Error("Unable to create message. Please try again later.");
     }
 };
+
 
 // Get a message by ID
 export const getMessageById = async (id) => {
