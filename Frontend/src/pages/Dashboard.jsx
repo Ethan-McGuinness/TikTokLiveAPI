@@ -1,5 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import DisclaimerModal from "./DisclaimerModal";
+import RestrictedWordsTab from "./RestrcitedWords";
 import "./Dashboard.css";
 
 const Dashboard = () => {
@@ -7,6 +9,8 @@ const Dashboard = () => {
     const [gifts, setGifts] = useState([]);
     const [follows, setFollows] = useState([]);
     const [username, setUsername] = useState("");
+    const [showDisclaimer, setShowDisclaimer] = useState(false); 
+    const [activeTab, setActiveTab] = useState();
     const location = useLocation();
     const navigate = useNavigate();
     const ws = useRef(null);
@@ -84,6 +88,15 @@ const Dashboard = () => {
         navigate("/");
     };
 
+    const renderTabContent = () => {
+        switch (activeTab) {
+            case "restrictedWords":
+                return <RestrictedWordsTab />;
+            default:
+                return <div>Select a Tab</div>
+        }
+    }
+
     return (
         <div className="dashboard-container">
             <div className="red-circle"></div>
@@ -95,7 +108,31 @@ const Dashboard = () => {
                 <button className="disconnect-button" onClick={handleDisconnect}>
                     Disconnect
                 </button>
+                {/* Circle button for showing the disclaimer */}
+                <div
+                    className="disclaimer-circle"
+                    onClick={() => setShowDisclaimer(true)}
+                    title="View Disclaimer"
+                > i </div>
             </div>
+
+            {/* Show the DisclaimerModal if state is true */}
+            {showDisclaimer && <DisclaimerModal onClose={() => setShowDisclaimer(false)} />}
+
+            {/* Tab Navigation */}
+            <div className="tabs-section">
+                <button
+                className={`tab ${activeTab === "restrictedWords" ? "active" : ""}`}
+                onClick={() => setActiveTab("restrictedWords")}
+                > Restricted Words</button>
+                <div className="tab-content">
+                {renderTabContent()}
+                </div>
+            </div>
+          
+            
+
+
 
             <div className="chat-section">
                 <h2>Chat Messages</h2>
@@ -104,7 +141,7 @@ const Dashboard = () => {
                         <div key={index} className="chat-message">
                             <div className="user-info">
                                 <img
-                                    src={msg.profilePictureUrl || 'default-avatar.png'} // Use the profile picture URL or a fallback image
+                                    src={msg.profilePictureUrl || "default-avatar.png"} 
                                     alt={msg.uniqueId}
                                     className="user-avatar"
                                 />
@@ -137,6 +174,8 @@ const Dashboard = () => {
                     ))}
                 </div>
             </div>
+
+
         </div>
     );
 };

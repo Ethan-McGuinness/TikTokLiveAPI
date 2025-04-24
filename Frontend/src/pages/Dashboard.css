@@ -43,6 +43,37 @@
     margin-bottom: 2rem;
 }
 
+
+/* Tabs Section */
+.tabs-section {
+    position: absolute;
+    top: 6rem; /* Adjust top so it's clearly visible between chat and gift sections */
+    left: 50%; /* Center the section horizontally */
+    transform: translateX(-50%); /* Adjust the center alignment */
+    width: 40%; /* Same width as chat box */
+    height: 80vh; /* Set a height so the section is visible */
+    background-color: #1a1a1a; /* Solid dark background */
+    border: 5px solid transparent; /* Transparent border */
+    border-image: linear-gradient(270deg,  #25f4ee,#fe2c55, #ffffff) 1; /* Gradient border */
+    border-radius: 10px; /* Rounded corners */
+    padding: 1rem; /* Padding inside the box */
+    color: white; /* Text color */
+    overflow: hidden; /* Hide any overflowing content */
+    display: flex;
+    flex-direction: column; /* Align content in a column */
+    z-index: 10; /* Ensure it's above the background shapes */
+}
+
+.tab-content{
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #444;
+    word-break: break-word;
+    background-color: #111111; /* solid background for messages */
+    display: flex;
+    align-items: center;
+}
+ 
+
 /* Chat Section (left panel) */
 .chat-section {
     position: absolute;
@@ -61,6 +92,7 @@
     flex-direction: column;
     z-index: 10; /* Ensures chat box is above the background circles */
 }
+
 
 /* Chat Box (scrollable area) */
 .chat-box {
@@ -183,6 +215,7 @@
 
 
 
+
 /* Background Shapes */
 
 /* Red Circle */
@@ -222,4 +255,18 @@
     border-radius: 50%;
     background: transparent;
     z-index: 0;
+}
+
+.disclaimer-circle {
+    position: absolute;
+    top: 6px;
+    right: 20px;
+    width: 25px;
+    height: 25px;
+    background: linear-gradient(270deg, #fe2c55, #25f4ee, #ffffff);
+    border-radius: 50%;
+    border: 2px solid black;
+    cursor: pointer;
+    z-index: 102;
+    font-size: 1.2rem;
 }

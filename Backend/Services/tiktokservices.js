@@ -10,7 +10,7 @@ const connectToTikTok = (username, ws) => {
     tiktokLiveConnection.connect()
         .then(state => {
             console.info(`[✅] Connected to TikTok Live - Room ID: ${state.roomId}`);
-            addStreamerIfNotExists(username);
+            //addStreamerIfNotExists(username);
         })
         .catch(err => {
             console.error("[❌] Failed to connect:", err);
@@ -22,8 +22,8 @@ const connectToTikTok = (username, ws) => {
         if (ws.readyState === 1) { // WebSocket OPEN state
             ws.send(JSON.stringify({ type: "chat", data }));
             console.log(`[💬] Chat from @${data.uniqueId}: "${data.comment}"`);
-            addUserIfNotExists(data.uniqueId);
-            addUserChatMessage(data.uniqueId,username,data.comment);
+            //addUserIfNotExists(data.uniqueId);
+            //addUserChatMessage(data.uniqueId,username,data.comment);
         } else {
             console.warn("[⚠️] WebSocket closed. Chat message not sent.");
         }

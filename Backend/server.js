@@ -3,6 +3,7 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const WebSocket = require("ws");
 const { connectToTikTok } = require("./Services/tiktokservices"); // Import the TikTok service
+const restrictedWordRoutes = require("./Services/restrictedWordsService");
 
 const app = express();
 const PORT = 3000;
@@ -10,6 +11,7 @@ const PORT = 3000;
 // Middleware
 app.use(cors());
 app.use(bodyParser.json());
+app.use("/restricted-words", restrictedWordRoutes);
 
 // Create HTTP server
 const server = app.listen(PORT, () => {

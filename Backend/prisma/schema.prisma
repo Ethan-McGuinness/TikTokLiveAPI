@@ -54,3 +54,8 @@ model GiftType {
   value     Float    
   gifts     Gift[]   
 }
+
+model RestrictedWords {
+  restrictedWord_id    Int    @id @default(autoincrement())
+  word              String
+}
