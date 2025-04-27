@@ -1,8 +1,12 @@
 const {addStreamerIfNotExists} = require ('../Database/streamerService');
 const {addUserIfNotExists} = require ('../Database/userServices');
 const { addUserChatMessage } = require('../Database/messageService');
+const { checkForRestrictedWord } = require('../Database/wordService');
+const {incrementCount} = require('./chatCounterService');
+
 
 const { WebcastPushConnection } = require("tiktok-live-connector");
+
 
 const connectToTikTok = (username, ws) => {
     const tiktokLiveConnection = new WebcastPushConnection(username);
@@ -17,17 +21,25 @@ const connectToTikTok = (username, ws) => {
             ws.send(JSON.stringify({ type: "error", message: "Failed to connect to TikTok live stream" }));
         });
 
-    // Listen for chat events
-    tiktokLiveConnection.on("chat", (data) => {
-        if (ws.readyState === 1) { // WebSocket OPEN state
-            ws.send(JSON.stringify({ type: "chat", data }));
-            console.log(`[💬] Chat from @${data.uniqueId}: "${data.comment}"`);
-            //addUserIfNotExists(data.uniqueId);
-            //addUserChatMessage(data.uniqueId,username,data.comment);
+
+        // Listen for chat events
+         tiktokLiveConnection.on("chat", async (data) => {
+        if (ws.readyState === 1) {
+            incrementCount();
+            const hasRestricted = await checkForRestrictedWord(data.comment); 
+            if (hasRestricted) {
+                console.warn(`[⚠️] Restricted word detected in chat from @${data.uniqueId}: "${data.comment}"`);
+            } else {
+                ws.send(JSON.stringify({ type: "chat", data }));
+                console.log(`[💬] Chat from @${data.uniqueId}: "${data.comment}"`);
+                // addUserIfNotExists(data.uniqueId);
+                // addUserChatMessage(data.uniqueId, username, data.comment);
+            }
         } else {
             console.warn("[⚠️] WebSocket closed. Chat message not sent.");
         }
     });
+
 
     // Listen for gift events
     tiktokLiveConnection.on("gift", (data) => {

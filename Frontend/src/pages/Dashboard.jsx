@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import DisclaimerModal from "./DisclaimerModal";
 import RestrictedWordsTab from "./RestrcitedWords";
+import ChatGraph from "./chatGraph";
 import "./Dashboard.css";
 
 const Dashboard = () => {
@@ -80,6 +81,8 @@ const Dashboard = () => {
         }
     }, [chatMessages]);
 
+   
+
     const handleDisconnect = () => {
         if (ws.current) {
             ws.current.close();
@@ -92,6 +95,8 @@ const Dashboard = () => {
         switch (activeTab) {
             case "restrictedWords":
                 return <RestrictedWordsTab />;
+            case "analytics":
+                return <ChatGraph/>;
             default:
                 return <div>Select a Tab</div>
         }
@@ -125,6 +130,10 @@ const Dashboard = () => {
                 className={`tab ${activeTab === "restrictedWords" ? "active" : ""}`}
                 onClick={() => setActiveTab("restrictedWords")}
                 > Restricted Words</button>
+                <button
+                    className={`tab ${activeTab === "analytics" ? "active" : ""}`}
+                    onClick={() => setActiveTab("analytics")}
+                > Analytics </button>
                 <div className="tab-content">
                 {renderTabContent()}
                 </div>
