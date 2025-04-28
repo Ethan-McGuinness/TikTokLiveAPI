@@ -5,8 +5,8 @@ const WebSocket = require("ws");
 const { connectToTikTok } = require("./Services/tiktokservices"); // Import the TikTok service
 const restrictedWordRoutes = require("./Services/restrictedWordsService");
 const { router: chatCounterRouter } = require("./Services/chatCounterService");
-
-
+const { router: followerCounterRouter } = require("./Services/followerCounterService");
+const { router: giftCounterRouter } = require("./Services/giftCounterService");
 
 const app = express();
 const PORT = 3000;
@@ -16,7 +16,8 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use("/restricted-words", restrictedWordRoutes);
 app.use("/chat-counter", chatCounterRouter);
-
+app.use("/follower-counter", followerCounterRouter);
+app.use("/gift-counter", giftCounterRouter);
 
 // Create HTTP server
 const server = app.listen(PORT, () => {

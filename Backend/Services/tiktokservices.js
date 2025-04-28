@@ -3,7 +3,8 @@ const {addUserIfNotExists} = require ('../Database/userServices');
 const { addUserChatMessage } = require('../Database/messageService');
 const { checkForRestrictedWord } = require('../Database/wordService');
 const {incrementCount} = require('./chatCounterService');
-
+const { incrementCount2 } = require('./followerCounterService');
+const { incrementCount3 } = require('./giftCounterService');
 
 const { WebcastPushConnection } = require("tiktok-live-connector");
 
@@ -44,6 +45,7 @@ const connectToTikTok = (username, ws) => {
     // Listen for gift events
     tiktokLiveConnection.on("gift", (data) => {
         if (ws.readyState === 1) { // WebSocket OPEN state
+            incrementCount3();
             ws.send(JSON.stringify({ type: "gift", data }));
             console.log(`[🎁] Gift from @${data.uniqueId} (Gift ID: ${data.giftId})`);
         } else {
@@ -54,6 +56,7 @@ const connectToTikTok = (username, ws) => {
     // Listen for Follow events
     tiktokLiveConnection.on("follow", data => {
         if (ws.readyState === 1) {
+            incrementCount2();
             ws.send(JSON.stringify({type: "follow", data}));
             console.log(`[➕] @${data.uniqueId} followed the streamer`);
         } else {
