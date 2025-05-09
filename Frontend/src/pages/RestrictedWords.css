@@ -4,16 +4,16 @@
     top: 4rem;
     width: 95%;
     height: 70vh;
-    background-color: #1a1a1a; /* Solid background */
-    border: 5px solid transparent; /* Transparent border initially */
-    border-image: linear-gradient(270deg, #fe2c55, #25f4ee, #ffffff) 1; /* Gradient border */
+    background-color: #1a1a1a; 
+    border: 5px solid transparent; 
+    border-image: linear-gradient(270deg, #fe2c55, #25f4ee, #ffffff) 1; 
     border-radius: 10px;
     padding: 1rem;
     color: white;
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    z-index: 10; /* Ensures it's above background circles */
+    z-index: 10; 
   }
   
   /* Title for the Section */

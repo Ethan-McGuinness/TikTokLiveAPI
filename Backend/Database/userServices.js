@@ -1,5 +1,6 @@
 const { getUserByUsername, createUser } = require("../queries/user");
 
+// Function to add a user if they do not already exist in the database
 async function addUserIfNotExists(username) {
     try {
             return await getUserByUsername(username);

@@ -23,18 +23,18 @@
 }
 
 .disconnect-button {
-    position: absolute; /* Positions the button relative to the header */
-    top: 1px; /* Distance from the top of the header */
-    left: 20px; /* Distance from the right edge of the header */
+    position: absolute; 
+    top: 1px; 
+    left: 20px; 
     padding: 8px 16px;
-    background-color: #ce1e1e; /* Red background */
+    background-color: #ce1e1e; 
     color: white;
     font-size: 0.8rem;
     border: 2px solid black;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    z-index: 101; /* Ensures it's above other content */
+    z-index: 101; 
 }
 
 /* Dashboard Box Styles */
@@ -47,28 +47,28 @@
 /* Tabs Section */
 .tabs-section {
     position: absolute;
-    top: 6rem; /* Adjust top so it's clearly visible between chat and gift sections */
-    left: 50%; /* Center the section horizontally */
-    transform: translateX(-50%); /* Adjust the center alignment */
-    width: 40%; /* Same width as chat box */
-    height: 80vh; /* Set a height so the section is visible */
-    background-color: #1a1a1a; /* Solid dark background */
-    border: 5px solid transparent; /* Transparent border */
-    border-image: linear-gradient(270deg,  #25f4ee,#fe2c55, #ffffff) 1; /* Gradient border */
-    border-radius: 10px; /* Rounded corners */
-    padding: 1rem; /* Padding inside the box */
-    color: white; /* Text color */
-    overflow: hidden; /* Hide any overflowing content */
+    top: 6rem; 
+    left: 50%; 
+    transform: translateX(-50%); 
+    width: 40%; 
+    height: 80vh; 
+    background-color: #1a1a1a; 
+    border: 5px solid transparent; 
+    border-image: linear-gradient(270deg,  #25f4ee,#fe2c55, #ffffff) 1; 
+    border-radius: 10px; 
+    padding: 1rem; 
+    color: white; 
+    overflow: hidden; 
     display: flex;
-    flex-direction: column; /* Align content in a column */
-    z-index: 10; /* Ensure it's above the background shapes */
+    flex-direction: column; 
+    z-index: 10; 
 }
 
 .tab-content{
     padding: 0.5rem 0;
     border-bottom: 1px solid #444;
     word-break: break-word;
-    background-color: #111111; /* solid background for messages */
+    background-color: #111111; 
     display: flex;
     align-items: center;
 }
@@ -81,16 +81,16 @@
     left: 2rem;
     width: 25%;
     height: 80vh;
-    background-color: #1a1a1a; /* Solid background */
-    border: 5px solid transparent; /* Make the border transparent */
-    border-image: linear-gradient(270deg, #fe2c55, #25f4ee, #ffffff) 1; /* Apply the gradient to the border */
+    background-color: #1a1a1a; 
+    border: 5px solid transparent; 
+    border-image: linear-gradient(270deg, #fe2c55, #25f4ee, #ffffff) 1; 
     border-radius: 10px;
     padding: 1rem;
     color: white;
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    z-index: 10; /* Ensures chat box is above the background circles */
+    z-index: 10; 
 }
 
 
@@ -100,7 +100,7 @@
     overflow-y: auto;
     padding-right: 0.5rem;
     margin-top: 1rem;
-    background-color: #111111; /* Solid background */
+    background-color: #111111; 
 }
 
 /* Chat Message Style */
@@ -108,36 +108,36 @@
     padding: 0.5rem 0;
     border-bottom: 1px solid #444;
     word-break: break-word;
-    background-color: #111111; /* solid background for messages */
+    background-color: #111111; 
     display: flex;
-    align-items: center; /* Aligns profile picture and message content */
+    align-items: center; 
 }
 
 /* User Info Container (Avatar + Username) */
 .user-info {
     display: flex;
     align-items: center;
-    margin-right: 1rem; /* Space between profile picture and message */
+    margin-right: 1rem; 
 }
 
 /* User Avatar Style */
 .user-avatar {
-    width: 40px; /* Size of the profile picture */
+    width: 40px; 
     height: 40px;
-    border-radius: 50%; /* Round shape for the avatar */
-    margin-right: 10px; /* Space between avatar and username */
+    border-radius: 50%; 
+    margin-right: 10px; 
 }
 
 /* Username Style */
 .chat-message strong {
-    font-size: 1rem; /* Adjusted size for username */
-    color: #fff; /* White color for username */
+    font-size: 1rem; 
+    color: #fff; 
 }
 
 /* Message Text Style */
 .chat-message p {
     margin: 0;
-    color: #fff; /* White color for message text */
+    color: #fff; 
     word-wrap: break-word;
 }
 
@@ -148,16 +148,16 @@
     right: 2rem;
     width: 25%;
     height: 40vh;
-    background-color: #1a1a1a; /* Solid background */
+    background-color: #1a1a1a; 
     border: 5px solid transparent;
-    border-image: linear-gradient(270deg, #ffffff, #25f4ee, #fe2c55) 1; /* Reversed gradient for contrast */
+    border-image: linear-gradient(270deg, #ffffff, #25f4ee, #fe2c55) 1; 
     border-radius: 10px;
     padding: 1rem;
     color: white;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
-    z-index: 10; /* Above background shapes */
+    z-index: 10; 
 }
 
 /* Gift Box (scrollable area) */
@@ -165,7 +165,7 @@
     flex: 1;
     overflow-y: auto;
     margin-top: 1rem;
-    background-color: #111111; /* Solid background like chat box */
+    background-color: #111111; 
     padding-right: 0.5rem;
 }
 
@@ -174,7 +174,7 @@
     padding: 0.5rem 0;
     border-bottom: 1px solid #444;
     word-break: break-word;
-    background-color: #111111; /* Solid background for consistency */
+    background-color: #111111; 
 }
 
 /* Follow Section (New) */
@@ -186,7 +186,7 @@
     height: 38vh;
     background-color: #1a1a1a;
     border: 5px solid transparent;
-    border-image: linear-gradient(270deg, #25f4ee, #fe2c55, #ffffff) 1; /* Different order for contrast */
+    border-image: linear-gradient(270deg, #25f4ee, #fe2c55, #ffffff) 1; 
     border-radius: 10px;
     padding: 1rem;
     color: white;

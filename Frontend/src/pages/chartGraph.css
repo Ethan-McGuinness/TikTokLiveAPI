@@ -4,9 +4,9 @@
     top: 4rem;
     width: 95%;
     height: 70vh;
-    background-color: #1a1a1a; /* Dark solid background */
+    background-color: #1a1a1a; 
     border: 5px solid transparent;
-    border-image: linear-gradient(270deg, #fe2c55, #25f4ee, #ffffff) 1; /* Matching gradient border */
+    border-image: linear-gradient(270deg, #fe2c55, #25f4ee, #ffffff) 1; 
     border-radius: 10px;
     padding: 1rem;
     color: white;

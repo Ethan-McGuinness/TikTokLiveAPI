@@ -1,5 +1,6 @@
 const { getStreamerByUsername, createStreamer } = require('../queries/streamer'); 
 
+// Function to add a streamer if they do not already exist in the database
 const addStreamerIfNotExists = async (username) => {
     try {
         return await getStreamerByUsername(username);

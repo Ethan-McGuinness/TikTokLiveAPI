@@ -1,5 +1,6 @@
 const {getWordByWord, getAllWords } = require('../queries/restrictedWords');
 
+// Function to check if a chat message contains any restricted words
 async function checkForRestrictedWord(chat){
     try{
         restrictedWords = await getAllWords();
