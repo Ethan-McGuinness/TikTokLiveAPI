@@ -8,11 +8,14 @@ ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, T
 const ChatGraph = () => {
     const [chartData, setChartData] = useState([]);
     const [timestamp, setTimestamp] = useState([]);
+
     const [chartData2, setChartData2] = useState([]);
     const [timestamp2, setTimestamp2] = useState([]);
+
     const [chartData3, setChartData3] = useState([]);
     const [timestamp3, setTimestamp3] = useState([]);
 
+    // Fetch chat data from the server
     const fetchChatData = async () => {
         try {
             const response = await fetch("http://localhost:3000/chat-counter/count");
@@ -32,6 +35,7 @@ const ChatGraph = () => {
         }
     };
 
+    // Fetch follower data from the server
     const fetchFollowerData = async () => {
         try {
             const response = await fetch("http://localhost:3000/follower-counter/count");
@@ -51,6 +55,7 @@ const ChatGraph = () => {
         }
     }
 
+    // Fetch gift data from the server
     const fetchGiftData = async () => {
         try {
             const response = await fetch("http://localhost:3000/gift-counter/count");
@@ -70,6 +75,7 @@ const ChatGraph = () => {
         }
     }
 
+    // Fetch data every 30 seconds
     useEffect(() => {
         const interval = setInterval(() => {
             fetchChatData();
@@ -83,6 +89,7 @@ const ChatGraph = () => {
         return () => clearInterval(interval);
     }, []);
 
+    // Chart.js data
     const data = {
         labels: timestamp,
         datasets: [
@@ -110,6 +117,7 @@ const ChatGraph = () => {
         ]
     };
 
+    
     return (
         <div className="chart-graph-container">
             <h2>Analytics</h2>

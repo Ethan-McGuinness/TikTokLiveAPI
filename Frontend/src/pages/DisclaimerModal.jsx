@@ -1,5 +1,7 @@
 import "./DisclaimerModal.css";
 
+//Component to display the disclaimer modal
+
 const DisclaimerModal = ({ onClose }) => {
     return (
         <div className="modal-overlay">

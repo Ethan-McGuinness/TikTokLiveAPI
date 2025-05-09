@@ -1,9 +1,13 @@
 const express = require('express');
 const router = express.Router();
 
+// This service tracks the number of gift messages sent in a given time period.
+// It resets the count every 30 seconds and provides an endpoint to get the current count.
+
 let giftMessageCount = 0;
 let lastTimestamp = Date.now();
 
+// Function to reset the count and return the current count data
 const resetAndGetCount3 = () => {
     const timestamp = new Date().toISOString();
     const count3Data = {count: giftMessageCount, timestamp};
@@ -12,15 +16,17 @@ const resetAndGetCount3 = () => {
     return count3Data;
 };
 
+// Set an interval to reset the count every 30 seconds
 setInterval(() => {
     const count3Data = resetAndGetCount3();
-    console.log("sending count data3: ${JSON.stringify(countData)})");
 }, 30000);
 
+// Function to increment the gift message count
 const incrementCount3 = () => {
     giftMessageCount++;
 };
 
+//route to get the current gift message count
 router.get('/count', (req, res) => {
     try{
     const count3Data = resetAndGetCount3();

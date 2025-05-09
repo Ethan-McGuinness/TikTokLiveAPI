@@ -12,11 +12,14 @@ const Dashboard = () => {
     const [username, setUsername] = useState("");
     const [showDisclaimer, setShowDisclaimer] = useState(false); 
     const [activeTab, setActiveTab] = useState();
+
     const location = useLocation();
     const navigate = useNavigate();
+
     const ws = useRef(null);
     const chatBoxRef = useRef(null);
 
+    // Function to handle WebSocket connection
     useEffect(() => {
         const params = new URLSearchParams(location.search);
         const user = params.get("user");
@@ -75,6 +78,7 @@ const Dashboard = () => {
         };
     }, [location.search]);
 
+    // Scroll to the bottom of the chat box when new messages arrive
     useEffect(() => {
         if (chatBoxRef.current) {
             chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
@@ -82,7 +86,7 @@ const Dashboard = () => {
     }, [chatMessages]);
 
    
-
+    // Function to handle disconnect button
     const handleDisconnect = () => {
         if (ws.current) {
             ws.current.close();
@@ -91,6 +95,7 @@ const Dashboard = () => {
         navigate("/");
     };
 
+    // Function to render the tab content based on the active tab
     const renderTabContent = () => {
         switch (activeTab) {
             case "restrictedWords":
@@ -113,7 +118,6 @@ const Dashboard = () => {
                 <button className="disconnect-button" onClick={handleDisconnect}>
                     Disconnect
                 </button>
-                {/* Circle button for showing the disclaimer */}
                 <div
                     className="disclaimer-circle"
                     onClick={() => setShowDisclaimer(true)}
@@ -121,10 +125,8 @@ const Dashboard = () => {
                 > i </div>
             </div>
 
-            {/* Show the DisclaimerModal if state is true */}
             {showDisclaimer && <DisclaimerModal onClose={() => setShowDisclaimer(false)} />}
 
-            {/* Tab Navigation */}
             <div className="tabs-section">
                 <button
                 className={`tab ${activeTab === "restrictedWords" ? "active" : ""}`}

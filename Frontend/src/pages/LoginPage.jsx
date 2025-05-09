@@ -5,33 +5,13 @@ import "./LoginPage.css";
 const LoginPage = () => {
     const [username, setUsername] = useState("");
     const navigate = useNavigate();
-    let ws; // Declare WebSocket here to manage its state
 
+    // Function to handle form submission
     const handleSubmit = (e) => {
         e.preventDefault();
+
         if (username.trim()) {
-            // If there was a previous WebSocket connection, close it
-            if (ws && ws.readyState === WebSocket.OPEN) {
-                ws.close();
-            }
-
-            // Open a new WebSocket connection to the backend server
-            ws = new WebSocket("ws://localhost:3000");
-
-            ws.onopen = () => {
-                // Send the username to the backend when WebSocket is open
-                ws.send(JSON.stringify({ username }));
-                console.log(`Sent username: ${username}`);
-            };
-
-            ws.onmessage = (event) => {
-                const message = JSON.parse(event.data);
-                if (message.type === "error") {
-                    alert(message.message); // Handle errors (if any)
-                }
-            };
-
-            // Navigate to the dashboard once the username is sent
+            // Navigate to dashboard — Dashboard will handle WebSocket
             navigate(`/dashboard?user=${username}`);
         } else {
             alert("Please enter a valid TikTok username.");

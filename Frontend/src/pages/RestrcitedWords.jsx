@@ -5,11 +5,12 @@ const RestrictedWords = () => {
   const [newWord, setNewWord] = useState("");
   const [words, setWords] = useState([]);
 
-  // Fetch words on component mount
+  // Fetch the list of restricted words when the component mounts
   useEffect(() => {
     fetchWords();
   }, []);
 
+  // Fetch the list of restricted words from the server
   const fetchWords = async () => {
     try {
       const res = await fetch("http://localhost:3000/restricted-words/all");
@@ -20,6 +21,7 @@ const RestrictedWords = () => {
     }
   };
 
+  // Handle adding a new restricted word
   const handleAddWord = async () => {
     if (newWord.trim() === "") return;
 
@@ -38,6 +40,7 @@ const RestrictedWords = () => {
     }
   };
 
+  // Handle deleting a restricted word
   const handleDeleteWord = async (id) => {
     try {
       const res = await fetch(`http://localhost:3000/restricted-words/delete/${id}`, {

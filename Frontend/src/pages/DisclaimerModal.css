@@ -1,3 +1,4 @@
+/* Disclaimer Modal Styles */
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -11,6 +12,7 @@
     z-index: 999;
 }
 
+/* Modal Content */
 .modal-content {
     background: #111;
     color: white;
@@ -23,6 +25,7 @@
     box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
 }
 
+/* Modal Header */
 .modal-content button {
     margin-top: 1rem;
     padding: 0.5rem 1rem;

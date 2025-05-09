@@ -1,4 +1,4 @@
-/* LoginPage.css */
+
 
 * {
     margin: 0;
@@ -16,8 +16,8 @@
     left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Ensure the video fills the screen */
-    z-index: -1; /* Ensures the video stays behind all other content */
+    object-fit: cover; 
+    z-index: -1; 
 }
   
 .login-container {
@@ -25,7 +25,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    position: relative; /* To contain the background video */
+    position: relative; 
 }
   .login-form-container {
     text-align: center;
@@ -42,7 +42,7 @@
   .phone-screen {
     background: linear-gradient(270deg, #fe2c55, #25f4ee, #ffffff);
     background-size: 600% 600%;
-    animation: tiktokGradient 10s ease infinite; /* Gradual movement */
+    animation: tiktokGradient 10s ease infinite; 
     border-radius: 20px; 
     padding: 2rem;
     width: 100%; 
@@ -77,9 +77,9 @@
   }
   
   .phone-home-button .square {
-    width: 10px; /* Size of the square */
-    height: 10px; /* Size of the square */
-    background-color: white; /* Color of the square */
+    width: 10px; 
+    height: 10px;
+    background-color: white; 
   }
   
   
@@ -95,9 +95,9 @@
   .input {
     padding: 1rem;
     width: 100%;
-    max-width: 350px; /* Constrain input box */
+    max-width: 350px; 
     border: 2px solid #ccc;
-    border-radius: 15px; /* Rounded corners for the input */
+    border-radius: 15px; 
     font-size: 1rem;
     margin-bottom: 1rem;
     outline: none;
@@ -110,13 +110,13 @@
   
   .button {
     width: 100%;
-    max-width: 350px; /* Same as input box width */
+    max-width: 350px; 
     padding: 1rem;
     background-color: #009688;
     color: white;
     font-weight: bold;
     border: none;
-    border-radius: 15px; /* Rounded corners for the button */
+    border-radius: 15px; 
     cursor: pointer;
     transition: background-color 0.3s;
   }

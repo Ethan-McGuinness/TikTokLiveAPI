@@ -2,6 +2,7 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
+//create a new restricted word
 export const createWord = async (word) => {
     try {
         return await prisma.restrictedWords.create({
@@ -15,6 +16,7 @@ export const createWord = async (word) => {
     }
 };
 
+//delete a restricted word
 export const deleteWord = async (id) => {
     try{
         return await prisma.restrictedWords.delete({
@@ -28,6 +30,7 @@ export const deleteWord = async (id) => {
     }
 };
 
+//get all restricted words
 export const getAllWords = async () => {
     try {
         return await prisma.restrictedWords.findMany();
@@ -37,6 +40,7 @@ export const getAllWords = async () => {
     }
 };
 
+//get a restricted word by id
 export const getWordById = async (id) => {
     try {
         return await prisma.restrictedWords.findUnique({
@@ -50,6 +54,7 @@ export const getWordById = async (id) => {
     }
 };
 
+//get a restricted word by word
 export const getWordByWord = async (word) => {
     try{
         return await prisma.restrictedWords.findUnique({

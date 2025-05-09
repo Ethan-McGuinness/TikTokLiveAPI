@@ -9,7 +9,7 @@ generator client {
   provider = "prisma-client-js"
 }
 
-// Define the models (tables) for your database
+// Define the streamer table in the database
 model Streamer {
   streamer_id Int      @id @default(autoincrement())  
   username    String   @unique  
@@ -17,6 +17,7 @@ model Streamer {
   gifts       Gift[]     
 }
 
+// Define the user table in the database
 model User {
   user_id    Int      @id @default(autoincrement())  
   username   String   @unique  
@@ -25,6 +26,7 @@ model User {
   gifts      Gift[]    
 }
 
+// Define the message table in the database
 model Message {
   message_id Int      @id @default(autoincrement())  
   content    String   
@@ -36,6 +38,7 @@ model Message {
   streamer   Streamer @relation(fields: [streamer_id], references: [streamer_id])  
 }
 
+// Define the gift table in the database
 model Gift {
   gift_id    Int      @id @default(autoincrement())  
   user_id    Int      
@@ -48,6 +51,7 @@ model Gift {
   giftType   GiftType @relation(fields: [giftType_id], references: [gift_id])  
 }
 
+// Define the gift type table in the database
 model GiftType {
   gift_id   Int      @id @default(autoincrement())  
   name      String  
@@ -55,6 +59,7 @@ model GiftType {
   gifts     Gift[]   
 }
 
+// Define the restricted words table in the database
 model RestrictedWords {
   restrictedWord_id    Int    @id @default(autoincrement())
   word              String

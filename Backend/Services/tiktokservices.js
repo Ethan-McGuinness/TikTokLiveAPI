@@ -2,70 +2,61 @@ const {addStreamerIfNotExists} = require ('../Database/streamerService');
 const {addUserIfNotExists} = require ('../Database/userServices');
 const { addUserChatMessage } = require('../Database/messageService');
 const { checkForRestrictedWord } = require('../Database/wordService');
+
 const {incrementCount} = require('./chatCounterService');
 const { incrementCount2 } = require('./followerCounterService');
 const { incrementCount3 } = require('./giftCounterService');
 
 const { WebcastPushConnection } = require("tiktok-live-connector");
 
-
+// Function to connect to TikTok Live and handle events for a given username
 const connectToTikTok = (username, ws) => {
     const tiktokLiveConnection = new WebcastPushConnection(username);
 
+    //function to handle connection errors
     tiktokLiveConnection.connect()
         .then(state => {
-            console.info(`[✅] Connected to TikTok Live - Room ID: ${state.roomId}`);
+            console.info(`Connected to TikTok Live - Room ID: ${state.roomId}`);
             //addStreamerIfNotExists(username);
         })
         .catch(err => {
-            console.error("[❌] Failed to connect:", err);
+            console.error("Failed to connect:", err);
             ws.send(JSON.stringify({ type: "error", message: "Failed to connect to TikTok live stream" }));
         });
 
 
-        // Listen for chat events
-         tiktokLiveConnection.on("chat", async (data) => {
+    // Handle chat messages
+    tiktokLiveConnection.on("chat", async (data) => {
         if (ws.readyState === 1) {
             incrementCount();
-            const hasRestricted = await checkForRestrictedWord(data.comment); 
-            if (hasRestricted) {
-                console.warn(`[⚠️] Restricted word detected in chat from @${data.uniqueId}: "${data.comment}"`);
-            } else {
+
+            const hasRestricted = await checkForRestrictedWord(data.comment);
+            if (!hasRestricted) {
                 ws.send(JSON.stringify({ type: "chat", data }));
-                console.log(`[💬] Chat from @${data.uniqueId}: "${data.comment}"`);
-                // addUserIfNotExists(data.uniqueId);
-                // addUserChatMessage(data.uniqueId, username, data.comment);
+
+                // Remove functions for database operations
+                // await addUserIfNotExists(data.uniqueId);
+                // await addUserChatMessage(data.uniqueId, username, data.comment);
             }
-        } else {
-            console.warn("[⚠️] WebSocket closed. Chat message not sent.");
         }
     });
 
 
-    // Listen for gift events
+     // Handle gift events
     tiktokLiveConnection.on("gift", (data) => {
-        if (ws.readyState === 1) { // WebSocket OPEN state
+        if (ws.readyState === 1) {
             incrementCount3();
             ws.send(JSON.stringify({ type: "gift", data }));
-            console.log(`[🎁] Gift from @${data.uniqueId} (Gift ID: ${data.giftId})`);
-        } else {
-            console.warn("[⚠️] WebSocket closed. Gift message not sent.");
         }
     });
 
-    // Listen for Follow events
-    tiktokLiveConnection.on("follow", data => {
+    // Handle follow events
+    tiktokLiveConnection.on("follow", (data) => {
         if (ws.readyState === 1) {
             incrementCount2();
-            ws.send(JSON.stringify({type: "follow", data}));
-            console.log(`[➕] @${data.uniqueId} followed the streamer`);
-        } else {
-            console.warn("Websocket closed. follow message not sent");
+            ws.send(JSON.stringify({ type: "follow", data }));
         }
     });
-
-
-
 
 };
 
